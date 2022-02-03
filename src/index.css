@@ -1,13 +1,80 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap');
+* {
+  overflow: hidden;
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+}
+body, .App {
+  width: 100vw;
+  height: 100vh;
+}
+#writingArea {
+  background-color: #36393F;
+  width: calc(100vw - 1rem);
+  height: calc(100vh - 3rem);
+  border: 1px solid #000;
+  overflow: auto;
+  padding: .5rem;
+  border-radius: 0;
+  outline: none;
+  resize: none;
+}
+nav {
+  width: calc(100vw - 1rem);
+  height: 1rem;
+  background-color: #202225;
+  text-align: center;
+  padding: .5rem;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #2E3338;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #202225;
+  cursor: pointer;
+}
+
+aside {
+  width: calc(20vw - 1rem);
+  height: calc(100vh - 1rem);
+  background-color: #2F3136;
+  padding: .5rem;
+  border-radius: 0;
+  overflow: auto;
+  outline: none;
+  resize: none;
+  position: absolute;
+  transition: transform .5s ease;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+#sidebarButton {
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  transition: transform .5s ease;
+}
+#sidebarButton img {
+  width: 100%;
+  height: 100%;
+}
+button {
+  transition: color .5s ease;
 }
