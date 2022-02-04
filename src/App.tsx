@@ -7,6 +7,16 @@ function App() {
   const [recentNotes, setRecentNotes] = useState<string[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const tips = [
+    "If a note is empty, it's deleted to save space.",
+    "Notes in the \"All notes\" list are sorted in alphabetical order.",
+    "The total characters in all notes cannot exceed 10 million.",
+    "Only the 10 most recent notes are shown in \"Recent Notes\".",
+    "Notes are automatically saved when you change them.",
+  ]
+
+  const [tip, setTip] = useState(tips[Math.floor(Math.random() * tips.length)]);
+
   useEffect(() => {
     // add note to local storage
     if (note === 'Untitled note') return;
@@ -66,13 +76,12 @@ function App() {
         <button style={{backgroundColor: "#EC2023", padding: ".5rem", margin: ".5rem", borderRadius: ".5rem"}} onClick={()=>{setRecentNotes([])}}>Clear recent notes</button>
         <br /><br />
         <h5>All notes</h5>
-        {Object.keys(localStorage).filter((key)=>key.startsWith('twonote') && key !== "twonoteRecentNotes").map((key)=>{
+        {Object.keys(localStorage).filter((key)=>key.startsWith('twonote') && key !== "twonoteRecentNotes").sort().map((key)=>{
           return <button key={key} style={{backgroundColor: "#7289DA", padding: ".5rem", margin: ".5rem", borderRadius: ".5rem"}} onClick={()=>{
             setNote(key.slice(7));
             setRecentNotes([key.slice(7), ...(recentNotes.filter((n)=>n!==key.slice(7)))]);
           }}>{key.slice(7)}</button>
         })}
-        <br />
         <br />
         <br />
         <br />
@@ -85,12 +94,16 @@ function App() {
           setNote('Untitled note');
           setText('');
         }}>Delete ALL notes (not recommended)</button>
+        <h6>Top tip: {tip}</h6>
       </aside>
       <nav>
-        <button id="sidebarButton" onClick={() => setSidebarOpen(!sidebarOpen)} style={{transform: sidebarOpen ? "translateX(20vw)" : "translateX(0vw)"}}>
+        <button id="sidebarButton" onClick={() => {
+          if (!sidebarOpen) setTip(tips[Math.floor(Math.random() * tips.length)])
+          setSidebarOpen(!sidebarOpen);
+        }} style={{transform: sidebarOpen ? "translateX(20vw)" : "translateX(0vw)"}}>
           <img src="burger.png" alt="burger menu" />
         </button>
-        Twonote - {note} - {text.length > 1000 ? Math.floor(text.length/100)/10 + "k" : text.length} characters
+        Twonote - {note} - {text.length > 1000 ? Math.floor(text.length/100)/10 + "k" : text.length} chars
       </nav>
       <textarea id="writingArea" value={text} onChange={(event)=>{
         setText(event.target.value);
